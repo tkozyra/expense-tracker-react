@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Registration from "./components/auth/RegistrationView";
+import RegistrationView from "./components/auth/RegistrationView";
+import LoginView from "./components/auth/LoginView";
 
 function App() {
   return (
@@ -8,7 +9,10 @@ function App() {
       <Router>
         <Switch>
           <Route path="/register">
-            <Registration />
+            <RegistrationView />
+          </Route>
+          <Route path="/login">
+            <LoginView />
           </Route>
         </Switch>
       </Router>

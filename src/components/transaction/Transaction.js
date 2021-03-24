@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { CurrencySymbols } from "../utils/CurrencySymbols";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const I = styled.i`
   display: flex;
@@ -15,6 +16,7 @@ const I = styled.i`
 `;
 
 const EditIcon = styled(I)`
+  color: black;
   &:hover {
     color: orange;
     transition: 0.2s;
@@ -22,6 +24,7 @@ const EditIcon = styled(I)`
 `;
 
 const DeleteIcon = styled(I)`
+  color: black;
   &:hover {
     color: red;
     transition: 0.2s;
@@ -76,7 +79,6 @@ const ItemGrow = styled(Item)`
 
 export default function Transaction({ transaction, onRemove, onEdit }) {
   const editIcon = <FontAwesomeIcon icon={faPen} />;
-
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
 
   return (
@@ -91,9 +93,13 @@ export default function Transaction({ transaction, onRemove, onEdit }) {
           : transaction.currency}{" "}
         {transaction.amount}
       </CurrencyAndAmount>
-      <Item onClick={() => onEdit(transaction.id)}>
-        <EditIcon>{editIcon}</EditIcon>
-      </Item>
+
+      <Link to={"/transactions/edit/" + transaction.id}>
+        <Item>
+          <EditIcon>{editIcon}</EditIcon>
+        </Item>
+      </Link>
+
       <Item onClick={() => onRemove(transaction.id)}>
         <DeleteIcon>{deleteIcon}</DeleteIcon>
       </Item>

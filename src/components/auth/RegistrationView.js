@@ -4,9 +4,9 @@ import { API_URL } from "../../api/Api";
 import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
-import FormInputErrorMessage from "./FormInputErrorMessage";
-import AuthFormContainer from "./AuthFormContainer";
-import FormInputPassword from "./FormInputPassword";
+import FormInputErrorMessage from "../form/FormInputErrorMessage";
+import { FormContainerAuth } from "../form/FormContainer";
+import FormInputPassword from "../form/FormInputPassword";
 
 export default function RegistrationView() {
   const { register, handleSubmit, errors } = useForm();
@@ -32,7 +32,7 @@ export default function RegistrationView() {
   };
 
   return (
-    <AuthFormContainer>
+    <FormContainerAuth>
       <h1 className="text-center mt-3 mb-5">Register</h1>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
@@ -93,6 +93,6 @@ export default function RegistrationView() {
           </Button>
         </div>
       </Form>
-    </AuthFormContainer>
+    </FormContainerAuth>
   );
 }

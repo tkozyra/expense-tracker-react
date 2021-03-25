@@ -23,7 +23,11 @@ export default function Dashboard() {
 
   useEffect(() => {
     setTransactionsLoading(true);
-    fetchTransactions().then((transactions) => setTransactions(transactions));
+    fetchTransactions()
+      .then((transactions) => {
+        return transactions.json();
+      })
+      .then((transactions) => setTransactions(transactions));
     setTransactionsLoading(false);
   }, []);
 

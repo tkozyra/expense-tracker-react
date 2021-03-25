@@ -9,6 +9,7 @@ const FormContainer = styled.div`
 
 const FormContainerCentered = styled(FormContainer)`
   min-width: 450px;
+  padding: 2em;
   position: absolute;
   transform: translate(-50%);
   left: 50%;
@@ -16,7 +17,6 @@ const FormContainerCentered = styled(FormContainer)`
 
 const FormContainerAuth = styled(FormContainerCentered)`
   top: 20%;
-  padding: 2em;
   border-radius: 5px;
   box-shadow: 0px 2px 10px -2px #898189;
 `;

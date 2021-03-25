@@ -6,7 +6,7 @@ const fetchTransactions = async () => {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((response) => response.json());
+  });
 };
 
 const fetchTransactionById = async (id) => {
@@ -15,7 +15,7 @@ const fetchTransactionById = async (id) => {
     headers: {
       "Content-Type": "application/json",
     },
-  }).then((response) => response.json());
+  });
 };
 
 const putTransaction = async (transaction, id) => {
@@ -25,7 +25,7 @@ const putTransaction = async (transaction, id) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(transaction),
-  }).then((response) => response.json());
+  });
 };
 
 const postTransaction = async (transaction) => {
@@ -35,7 +35,7 @@ const postTransaction = async (transaction) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(transaction),
-  }).then((response) => response.json());
+  });
 };
 
 const deleteTransaction = async (id) => {

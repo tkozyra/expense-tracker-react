@@ -8,9 +8,12 @@ import {
   fetchTransactions,
   deleteTransaction,
 } from "../transaction/TransactionController";
+import TransactionFilter from "../transaction/filter/TransactionFilter";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+  const [filterParams, setFilterParams] = useState({ type: "EXPENSE" });
   const [transactionsLoading, setTransactionsLoading] = useState(true);
   const currency = "USD";
 
@@ -21,13 +24,30 @@ export default function Dashboard() {
     );
   }
 
+  //filter transactions on filterParams change
+  useEffect(() => {
+    if (filterParams.type !== "ALL") {
+      setFilteredTransactions(
+        transactions.filter(
+          (transaction) => transaction.type === filterParams.type
+        )
+      );
+    } else {
+      setFilteredTransactions(transactions);
+    }
+  }, [transactions, filterParams]);
+
+  //fetch transactions on render
   useEffect(() => {
     setTransactionsLoading(true);
     fetchTransactions()
       .then((transactions) => {
         return transactions.json();
       })
-      .then((transactions) => setTransactions(transactions));
+      .then((transactions) => {
+        setTransactions(transactions);
+        setFilteredTransactions(transactions);
+      });
     setTransactionsLoading(false);
   }, []);
 
@@ -42,8 +62,12 @@ export default function Dashboard() {
       </div>
       <div className="row">
         <div className="col-md-8">
+          <TransactionFilter
+            filterParams={filterParams}
+            setFilterParams={setFilterParams}
+          />
           <TransactionListSummary
-            transactions={transactions}
+            transactions={filteredTransactions}
             currency={currency}
           ></TransactionListSummary>
 
@@ -53,7 +77,7 @@ export default function Dashboard() {
             </Spinner>
           ) : (
             <TransactionList
-              transactions={transactions}
+              transactions={filteredTransactions}
               onRemove={removeTransaction}
             ></TransactionList>
           )}

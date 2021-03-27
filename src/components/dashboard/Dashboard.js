@@ -12,7 +12,7 @@ import TransactionListHeader from "../transaction/TransactionListHeader";
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
   const [filteredTransactions, setFilteredTransactions] = useState([]);
-  const [filterParams, setFilterParams] = useState({ type: "EXPENSE" });
+  const [filterParams, setFilterParams] = useState({ type: "ALL" });
   const [transactionsLoading, setTransactionsLoading] = useState(true);
   const currency = "USD";
 
@@ -25,15 +25,17 @@ export default function Dashboard() {
 
   //filter transactions on filterParams change
   useEffect(() => {
-    if (filterParams.type !== "ALL") {
-      setFilteredTransactions(
-        transactions.filter(
-          (transaction) => transaction.type === filterParams.type
-        )
-      );
-    } else {
-      setFilteredTransactions(transactions);
-    }
+    setFilteredTransactions(
+      transactions.filter(
+        (transaction) =>
+          (filterParams.type !== "ALL"
+            ? transaction.type === filterParams.type
+            : true) &&
+          transaction.description
+            .toLowerCase()
+            .includes(filterParams.description.toLowerCase())
+      )
+    );
   }, [transactions, filterParams]);
 
   //fetch transactions on render

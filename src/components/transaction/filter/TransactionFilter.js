@@ -3,21 +3,29 @@ import TransactionTypeFilter from "./TransactionTypeFilter";
 import {
   TransactionFilterContainer,
   TransactionFilterItem,
-  TransactionFilterTitle,
 } from "./TransactionFilterContainer";
+import TransactionDescriptionFilter from "./TransactionDescriptionFilter";
 
 export default function TransactionFilter({ filterParams, setFilterParams }) {
   const [type, setType] = useState("ALL");
+  const [description, setDescription] = useState("");
 
   //update filterParams on transaction type change
   useEffect(() => {
-    setFilterParams({ ...filterParams, type: type });
-  }, [type]);
+    console.log(description);
+    setFilterParams({ ...filterParams, type: type, description: description });
+  }, [type, description]);
 
   return (
     <TransactionFilterContainer>
       <TransactionFilterItem>
-        <TransactionFilterTitle>Transaction type</TransactionFilterTitle>
+        <TransactionDescriptionFilter
+          description={description}
+          setDescription={setDescription}
+        />
+      </TransactionFilterItem>
+
+      <TransactionFilterItem>
         <TransactionTypeFilter type={type} setType={setType} />
       </TransactionFilterItem>
     </TransactionFilterContainer>

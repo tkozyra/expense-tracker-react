@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 const ButtonContainerTransactionType = styled.div`
   display: inline-block;
-  border: 2px solid #dee2e6;
+  border: 2px solid #e9ecef;
+  border-radius: 5px;
 `;
 
 const ButtonContainerForm = styled.div`

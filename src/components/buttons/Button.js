@@ -47,7 +47,7 @@ const ButtonTransactionType = styled.button`
   padding: 0.3em 1em;
   background: #fff;
   border: none;
-  background: ${(props) => (props.isCurrent ? "#dee2e6" : "white")};
+  background: ${(props) => (props.isCurrent ? "#e9ecef" : "white")};
 `;
 
 const ButtonAddTransaction = () => {

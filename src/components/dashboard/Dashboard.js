@@ -2,13 +2,12 @@ import TransactionList from "../transaction/TransactionList";
 import TransactionListSummary from "../transaction/TransactionListSummary";
 import { useState, useEffect } from "react";
 import Spinner from "react-bootstrap/Spinner";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
 import {
   fetchTransactions,
   deleteTransaction,
 } from "../transaction/TransactionController";
 import TransactionFilter from "../transaction/filter/TransactionFilter";
+import TransactionListHeader from "../transaction/TransactionListHeader";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -55,9 +54,7 @@ export default function Dashboard() {
     <div className="container">
       <div className="row">
         <div className="col-md-8">
-          <Link to="/transactions/new">
-            <Button>Add transaction</Button>
-          </Link>
+          <TransactionListHeader />
         </div>
       </div>
       <div className="row">
@@ -66,10 +63,11 @@ export default function Dashboard() {
             filterParams={filterParams}
             setFilterParams={setFilterParams}
           />
+
           <TransactionListSummary
             transactions={filteredTransactions}
             currency={currency}
-          ></TransactionListSummary>
+          />
 
           {transactionsLoading ? (
             <Spinner animation="border" role="status">

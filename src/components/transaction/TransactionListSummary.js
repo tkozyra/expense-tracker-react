@@ -8,7 +8,6 @@ const Container = styled.div`
   justify-content: flex-start;
   border-bottom: 1px solid #f3f3f3;
   padding: 1em;
-  margin: 1em 0;
 `;
 
 const Item = styled.div`
@@ -57,7 +56,7 @@ export default function TransactionListSummary({ transactions, currency }) {
         <Amount>
           {CurrencySymbols[currency] !== undefined
             ? CurrencySymbols[currency]
-            : currency}{" "}
+            : currency}
           {state.expenseSum}
         </Amount>
       </ItemLeft>
@@ -66,17 +65,18 @@ export default function TransactionListSummary({ transactions, currency }) {
         <Amount>
           {CurrencySymbols[currency] !== undefined
             ? CurrencySymbols[currency]
-            : currency}{" "}
+            : currency}
           {state.incomeSum}
         </Amount>
       </ItemLeft>
       <ItemRight>
         <Title>Balance</Title>
         <Amount>
+          {state.balance < 0 ? "-" : ""}
           {CurrencySymbols[currency] !== undefined
             ? CurrencySymbols[currency]
-            : currency}{" "}
-          {state.balance}
+            : currency}
+          {Math.abs(state.balance)}
         </Amount>
       </ItemRight>
     </Container>

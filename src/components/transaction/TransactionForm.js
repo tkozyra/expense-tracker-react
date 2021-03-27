@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
 import FormInputErrorMessage from "../form/FormInputErrorMessage";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
+import { ButtonPrimary, ButtonSecondary } from "../buttons/Button";
+import { ButtonContainerForm } from "../buttons/ButtonContainer";
 
 export default function TransactionForm({
   transaction,
@@ -94,18 +95,12 @@ export default function TransactionForm({
             </Form.Control>
           </Form.Group>
 
-          <div>
-            <Button type="submit" className="mt-3">
+          <ButtonContainerForm>
+            <ButtonPrimary type="submit" marginRight={"1em"}>
               {submitButtonText}
-            </Button>
-            <Button
-              onClick={handleCancel}
-              className="mt-3 ml-3"
-              variant="secondary"
-            >
-              Cancel
-            </Button>
-          </div>
+            </ButtonPrimary>
+            <ButtonSecondary onClick={handleCancel}>Cancel</ButtonSecondary>
+          </ButtonContainerForm>
         </Form>
       )}
     </div>

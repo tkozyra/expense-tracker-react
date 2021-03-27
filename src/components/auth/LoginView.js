@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { API_URL } from "../../api/Api";
-import Button from "react-bootstrap/Button";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
 import FormInputErrorMessage from "../form/FormInputErrorMessage";
 import { FormContainerAuth } from "../form/FormContainer";
 import FormInputPassword from "../form/FormInputPassword";
+import { ButtonPrimary } from "../buttons/Button";
+import { ButtonContainerForm } from "../buttons/ButtonContainer";
 
 export default function RegistrationView() {
   const { register, handleSubmit, errors } = useForm();
@@ -65,11 +66,11 @@ export default function RegistrationView() {
           ) : null}
         </Form.Group>
 
-        <div>
-          <Button type="submit" disabled={submitting} className="w-100 mt-3">
+        <ButtonContainerForm>
+          <ButtonPrimary type="submit" disabled={submitting} width={"100%"}>
             Login
-          </Button>
-        </div>
+          </ButtonPrimary>
+        </ButtonContainerForm>
       </Form>
     </FormContainerAuth>
   );

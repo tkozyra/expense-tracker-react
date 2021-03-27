@@ -2,7 +2,14 @@ import styled from "styled-components";
 
 const ButtonContainerTransactionType = styled.div`
   display: inline-block;
-  border: 1px solid #f3f3f3;
+  border: 2px solid #dee2e6;
 `;
 
-export { ButtonContainerTransactionType };
+const ButtonContainerForm = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 2em;
+`;
+
+export { ButtonContainerTransactionType, ButtonContainerForm };

@@ -59,12 +59,12 @@ const CurrencyAndAmount = styled.div`
   ${({ transactionType }) =>
     transactionType === "EXPENSE" &&
     `
-      color: red;
+      color: #c1121f;
     `}
   ${({ transactionType }) =>
     transactionType === "INCOME" &&
     `
-      color: green;
+      color: #008000;
     `}
 `;
 
@@ -90,7 +90,7 @@ export default function Transaction({ transaction, onRemove, onEdit }) {
       <CurrencyAndAmount transactionType={transaction.type}>
         {CurrencySymbols[transaction.currency] !== undefined
           ? CurrencySymbols[transaction.currency]
-          : transaction.currency}{" "}
+          : transaction.currency}
         {transaction.amount}
       </CurrencyAndAmount>
 

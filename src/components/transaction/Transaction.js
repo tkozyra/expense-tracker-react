@@ -36,8 +36,7 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #f3f3f3;
-  padding: 1em;
-  margin: 1em 0;
+  padding: 1em 2em;
 `;
 
 const Description = styled.p`

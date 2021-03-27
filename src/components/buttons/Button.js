@@ -1,8 +1,14 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus,
+  faAngleLeft,
+  faAngleRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const plusIcon = <FontAwesomeIcon icon={faPlus} />;
+const arrowLeftIcon = <FontAwesomeIcon icon={faAngleLeft} />;
+const arrowRightIcon = <FontAwesomeIcon icon={faAngleRight} />;
 
 const Button = styled.button`
   display: flex;
@@ -54,9 +60,41 @@ const ButtonAddTransaction = () => {
   return <ButtonPrimaryRound>{plusIcon}</ButtonPrimaryRound>;
 };
 
+const ButtonPagination = styled.button`
+  background: #e9ecef;
+  border: 1px solid #dee2e6;
+  border-radius: 100px;
+  padding: 0.5em 1em;
+  margin: 0 0.2em;
+`;
+
+const ButtonArrowLeft = ({ onClick, disabled }) => {
+  return (
+    <ButtonPagination onClick={onClick} disabled={disabled}>
+      {arrowLeftIcon}
+    </ButtonPagination>
+  );
+};
+
+const ButtonArrowRight = ({ onClick, disabled }) => {
+  return (
+    <ButtonPagination onClick={onClick} disabled={disabled}>
+      {arrowRightIcon}
+    </ButtonPagination>
+  );
+};
+
+const ButtonPageNumber = styled(ButtonPagination)`
+  background: ${(props) => (props.current ? "#0077b6" : "#e9ecef")};
+  color: ${(props) => (props.current ? "#ffffff" : "#000000")};
+`;
+
 export {
   ButtonPrimary,
   ButtonSecondary,
   ButtonTransactionType,
+  ButtonPageNumber,
+  ButtonArrowRight,
+  ButtonArrowLeft,
   ButtonAddTransaction,
 };

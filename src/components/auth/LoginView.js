@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { API_URL } from "../../api/Api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
 import FormInputErrorMessage from "../form/FormInputErrorMessage";
@@ -8,32 +7,52 @@ import { FormContainerAuth } from "../form/FormContainer";
 import FormInputPassword from "../form/FormInputPassword";
 import { ButtonPrimary } from "../buttons/Button";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
+import { login } from "../../services/AuthService";
+import { Alert } from "react-bootstrap";
 
-export default function RegistrationView() {
+export default function LoginView() {
   const { register, handleSubmit, errors } = useForm();
   const [submitting, setSubmitting] = useState(false);
+  const [loginSuccessful, setLoginSuccessful] = useState(false);
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   const onSubmit = async (formData) => {
     setSubmitting(true);
-    console.log(formData);
+    setLoginSuccessful(false);
+    setShowAlert(false);
 
-    const response = await fetch(API_URL + "/users/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    await login(formData.username, formData.password).then(
+      (response) => {
+        if (response.status && response.status !== 200) {
+          setInvalidCredentials(true);
+          setShowAlert(true);
+        } else {
+          setLoginSuccessful(true);
+        }
       },
-      body: JSON.stringify({
-        username: formData.username,
-        password: formData.password,
-      }),
-    });
-    console.log(response);
+      (error) => {
+        console.log(error);
+      }
+    );
+
     setSubmitting(false);
   };
 
   return (
     <FormContainerAuth>
       <h1 className="text-center mt-3 mb-5">Login</h1>
+
+      {invalidCredentials && showAlert && (
+        <Alert
+          variant={"danger"}
+          onClose={() => setShowAlert(false)}
+          dismissible
+        >
+          Invalid username or password.
+        </Alert>
+      )}
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
           <Form.Label htmlFor="username">Username</Form.Label>
@@ -54,10 +73,6 @@ export default function RegistrationView() {
           <Form.Label htmlFor="password">Password</Form.Label>
           <FormInputPassword
             reference={register({
-              minLength: {
-                value: 8,
-                message: "Password should be at least 8 characters long",
-              },
               required: "The Password field is required",
             })}
           />

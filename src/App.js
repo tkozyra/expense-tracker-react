@@ -10,6 +10,7 @@ import LoginView from "./components/auth/LoginView";
 import NewTransactionView from "./components/transaction/NewTransactionView";
 import EditTransactionView from "./components/transaction/EditTransactionView";
 import Dashboard from "./components/dashboard/Dashboard";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
@@ -21,6 +22,9 @@ function App() {
           </Route>
           <Route path="/register">
             <RegistrationView />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route path="/transactions/new">
             <NewTransactionView />

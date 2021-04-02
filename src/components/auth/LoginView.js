@@ -9,6 +9,7 @@ import { ButtonPrimary } from "../buttons/Button";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
 import { login } from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
+import { Redirect } from "react-router";
 
 export default function LoginView() {
   const { register, handleSubmit, errors } = useForm();
@@ -38,6 +39,10 @@ export default function LoginView() {
 
     setSubmitting(false);
   };
+
+  if (loginSuccessful) {
+    return <Redirect to="/profile" />;
+  }
 
   return (
     <FormContainerAuth>

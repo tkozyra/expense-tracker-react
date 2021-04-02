@@ -24,8 +24,8 @@ const logout = () => {
   localStorage.removeItem("user");
 };
 
-const register = (username, email, password) => {
-  fetch(API_URL + "/auth/signup", {
+const signup = (username, email, password) => {
+  return fetch(API_URL + "/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -42,4 +42,4 @@ const getCurrentUser = () => {
   return JSON.parse(localStorage.getItem("user"));
 };
 
-export { login, logout, register, getCurrentUser };
+export { login, logout, signup, getCurrentUser };

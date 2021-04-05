@@ -11,6 +11,7 @@ import { ButtonContainerForm } from "../buttons/ButtonContainer";
 export default function TransactionForm({
   transaction,
   onSubmit,
+  dataLoading,
   submitting,
   submitButtonText,
 }) {
@@ -23,7 +24,7 @@ export default function TransactionForm({
 
   return (
     <div>
-      {submitting ? (
+      {submitting || dataLoading ? (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>

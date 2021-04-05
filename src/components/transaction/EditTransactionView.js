@@ -6,68 +6,76 @@ import { fetchTransactionById } from "./TransactionController";
 import { putTransaction } from "../transaction/TransactionController";
 import { Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
+import { getCurrentUser } from "../../services/AuthService";
 
 export default function NewTransactionView() {
   const [transaction, setTransaction] = useState({});
   const { id } = useParams();
 
+  const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const [error, setError] = useState(false);
-  const [showAlert, setShowAlert] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("Transaction not found.");
+  const [alertVisible, setAlertVisible] = useState(false);
 
   async function onSubmit(transaction) {
     setSubmitting(true);
-    setError(null);
+    setAlertVisible(false);
+    setErrorMessage("Transaction not found.");
     transaction.id = id;
-    transaction.userId = 55; //
+    transaction.userId = getCurrentUser().id;
     transaction.currency = "USD"; //
 
-    await putTransaction(transaction)
-      .then((res) => res.json())
-      .then(
-        (reponses) => {
-          setSubmitting(false);
-          setRedirect(true);
-        },
-        (error) => {
-          setSubmitting(false);
-          setShowAlert(true);
-          setError(error);
-        }
-      );
+    try {
+      const response = await putTransaction(transaction);
+      if (!response.ok) {
+        setAlertVisible(true);
+        setErrorMessage("An error occured while updating transaction.");
+      } else {
+        setRedirect(true);
+      }
+    } catch (error) {
+      setAlertVisible(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   useEffect(() => {
-    fetchTransactionById(id)
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
+    async function fetchTransaction() {
+      try {
+        setLoading(true);
+        const response = await fetchTransactionById(id);
+        const data = await response.json();
+
+        if (!response.ok) {
+          setErrorMessage("Transaction not found.");
         } else {
-          return;
+          setTransaction(data);
         }
-      })
-      .then(
-        (response) => {
-          setTransaction(response);
-        },
-        (error) => {
-          setSubmitting(false);
-        }
-      );
+      } catch (error) {
+        setErrorMessage("Transaction not found.");
+        setAlertVisible(true);
+      } finally {
+        setSubmitting(false);
+        setLoading(false);
+      }
+    }
+
+    fetchTransaction();
   }, [id]);
 
   return (
     <FormContainerTransaction>
       {redirect && <Redirect to="/dashboard" />}
 
-      {error && showAlert && (
+      {errorMessage && alertVisible && (
         <Alert
           variant={"danger"}
-          onClose={() => setShowAlert(false)}
+          onClose={() => setAlertVisible(false)}
           dismissible
         >
-          An error occured while submitting. Please try again.
+          {errorMessage}
         </Alert>
       )}
 
@@ -77,6 +85,7 @@ export default function NewTransactionView() {
           <TransactionForm
             transaction={transaction}
             submitting={submitting}
+            dataLoading={loading}
             onSubmit={onSubmit}
             submitButtonText={"Update transaction"}
           />

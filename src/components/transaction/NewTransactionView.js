@@ -4,30 +4,34 @@ import { FormContainerTransaction } from "../form/FormContainer";
 import { postTransaction } from "../transaction/TransactionController";
 import { Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
+import { getCurrentUser } from "../../services/AuthService";
 
 export default function NewTransactionView() {
   const [submitting, setSubmitting] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const [error, setError] = useState(null);
-  const [showAlert, setShowAlert] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(
+    "An error occured while creating new transaction."
+  );
+  const [alertVisible, setAlertVisible] = useState(false);
 
   async function onSubmit(transaction) {
     setSubmitting(true);
-    setError(null);
-    transaction.userId = 55; //
+    setAlertVisible(false);
+    transaction.userId = getCurrentUser().id;
     transaction.currency = "USD"; //
 
-    await postTransaction(transaction).then(
-      (response) => {
-        setSubmitting(false);
+    try {
+      const response = await postTransaction(transaction);
+      if (!response.ok) {
+        setAlertVisible(true);
+      } else {
         setRedirect(true);
-      },
-      (error) => {
-        setSubmitting(false);
-        setShowAlert(true);
-        setError(error);
       }
-    );
+    } catch (error) {
+      setAlertVisible(true);
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -36,13 +40,13 @@ export default function NewTransactionView() {
 
       <h1>New transaction</h1>
 
-      {error && showAlert && (
+      {errorMessage && alertVisible && (
         <Alert
           variant={"danger"}
-          onClose={() => setShowAlert(false)}
+          onClose={() => setAlertVisible(false)}
           dismissible
         >
-          An error occured while submitting. Please try again.
+          {errorMessage}
         </Alert>
       )}
 

@@ -4,7 +4,7 @@ import { FormContainerTransaction } from "../form/FormContainer";
 import { postTransaction } from "../transaction/TransactionController";
 import { Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-import { getCurrentUser } from "../../services/AuthService";
+import AuthService from "../../services/AuthService";
 
 export default function NewTransactionView() {
   const [submitting, setSubmitting] = useState(false);
@@ -17,7 +17,7 @@ export default function NewTransactionView() {
   async function onSubmit(transaction) {
     setSubmitting(true);
     setAlertVisible(false);
-    transaction.userId = getCurrentUser().id;
+    transaction.userId = AuthService.getCurrentUser().id;
     transaction.currency = "USD"; //
 
     try {

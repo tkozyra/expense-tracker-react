@@ -7,45 +7,53 @@ import { FormContainerAuth } from "../form/FormContainer";
 import FormInputPassword from "../form/FormInputPassword";
 import { ButtonPrimary } from "../buttons/Button";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
-import { login } from "../../services/AuthService";
+import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
-import { Redirect } from "react-router";
+import { useHistory, useLocation } from "react-router";
 
 export default function LoginView() {
   const { register, handleSubmit, errors } = useForm();
   const [submitting, setSubmitting] = useState(false);
-  const [loginSuccessful, setLoginSuccessful] = useState(false);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
-  const onSubmit = async (formData) => {
+  let history = useHistory();
+  let location = useLocation();
+  let { from } = location.state || { from: { pathname: "/" } };
+
+  const login = async (formData) => {
     setSubmitting(true);
-    setLoginSuccessful(false);
     setShowAlert(false);
 
-    await login(formData.username, formData.password).then(
-      (response) => {
-        if (response.status && response.status !== 200) {
-          setInvalidCredentials(true);
-          setShowAlert(true);
-        } else {
-          setLoginSuccessful(true);
+    try {
+      const response = await AuthService.login(
+        formData.username,
+        formData.password
+      );
+      const data = await response.json();
+
+      console.log(response);
+      if (!response.ok) {
+        setInvalidCredentials(true);
+        setShowAlert(true);
+      } else {
+        if (data.accessToken) {
+          localStorage.setItem("user", JSON.stringify(data));
         }
-      },
-      (error) => {
-        console.log(error);
+        history.replace("/");
+        window.location.reload();
       }
-    );
-
-    setSubmitting(false);
+    } catch (error) {
+      setShowAlert(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
-
-  if (loginSuccessful) {
-    return <Redirect to="/profile" />;
-  }
 
   return (
     <FormContainerAuth>
+      <p>You must log in to view the page at {from.pathname}</p>
+
       <h1 className="text-center mt-3 mb-5">Login</h1>
 
       {invalidCredentials && showAlert && (
@@ -58,7 +66,7 @@ export default function LoginView() {
         </Alert>
       )}
 
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(login)}>
         <Form.Group>
           <Form.Label htmlFor="username">Username</Form.Label>
           <Form.Control

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "../../services/AuthService";
+import AuthService from "../../services/AuthService";
 import styled from "styled-components";
 import { ButtonPrimary } from "../buttons/Button";
 
@@ -33,7 +33,7 @@ export default function Profile() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    setCurrentUser(getCurrentUser());
+    setCurrentUser(AuthService.getCurrentUser());
   }, []);
 
   return (

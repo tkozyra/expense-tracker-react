@@ -7,7 +7,7 @@ import { FormContainerAuth } from "../form/FormContainer";
 import FormInputPassword from "../form/FormInputPassword";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
 import { ButtonPrimary } from "../buttons/Button";
-import { signup } from "../../services/AuthService";
+import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 
@@ -23,7 +23,11 @@ export default function RegistrationView() {
     setSubmitting(true);
     console.log(formData);
 
-    await signup(formData.username, formData.email, formData.password).then(
+    await AuthService.signup(
+      formData.username,
+      formData.email,
+      formData.password
+    ).then(
       (response) =>
         response.json().then((data) => {
           console.log(data.message);

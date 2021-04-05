@@ -6,7 +6,7 @@ import { fetchTransactionById } from "./TransactionController";
 import { putTransaction } from "../transaction/TransactionController";
 import { Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
-import { getCurrentUser } from "../../services/AuthService";
+import AuthService from "../../services/AuthService";
 
 export default function NewTransactionView() {
   const [transaction, setTransaction] = useState({});
@@ -23,7 +23,7 @@ export default function NewTransactionView() {
     setAlertVisible(false);
     setErrorMessage("Transaction not found.");
     transaction.id = id;
-    transaction.userId = getCurrentUser().id;
+    transaction.userId = AuthService.getCurrentUser().id;
     transaction.currency = "USD"; //
 
     try {

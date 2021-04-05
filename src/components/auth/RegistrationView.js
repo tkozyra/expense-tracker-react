@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { API_URL } from "../../api/Api";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
 import FormInputErrorMessage from "../form/FormInputErrorMessage";
@@ -8,33 +7,59 @@ import { FormContainerAuth } from "../form/FormContainer";
 import FormInputPassword from "../form/FormInputPassword";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
 import { ButtonPrimary } from "../buttons/Button";
+import { signup } from "../../services/AuthService";
+import { Alert } from "react-bootstrap";
+import { Redirect } from "react-router";
 
 export default function RegistrationView() {
   const { register, handleSubmit, errors } = useForm();
   const [submitting, setSubmitting] = useState(false);
+  const [registrationSuccessful, setRegistrationSuccessful] = useState(false);
+  const [invalidCredentials, setInvalidCredentials] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const onSubmit = async (formData) => {
     setSubmitting(true);
     console.log(formData);
 
-    const response = await fetch(API_URL + "/users/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: formData.username,
-        email: formData.email,
-        password: formData.password,
-      }),
-    });
-    console.log(response);
+    await signup(formData.username, formData.email, formData.password).then(
+      (response) =>
+        response.json().then((data) => {
+          console.log(data.message);
+          if (response.status && response.status !== 200) {
+            setInvalidCredentials(true);
+            setShowAlert(true);
+            setAlertMessage(data.message);
+          } else {
+            setRegistrationSuccessful(true);
+          }
+        }),
+      (error) => {
+        console.log(error);
+      }
+    );
+
     setSubmitting(false);
   };
+
+  if (registrationSuccessful) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <FormContainerAuth>
       <h1 className="text-center mt-3 mb-5">Register</h1>
+      {invalidCredentials && showAlert && (
+        <Alert
+          variant={"danger"}
+          onClose={() => setShowAlert(false)}
+          dismissible
+        >
+          {alertMessage}
+        </Alert>
+      )}
+
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group>
           <Form.Label htmlFor="username">Username</Form.Label>

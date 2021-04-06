@@ -7,9 +7,9 @@ import EditTransactionView from "./components/transaction/EditTransactionView";
 import Dashboard from "./components/dashboard/Dashboard";
 import Profile from "./components/profile/Profile";
 import HomeView from "./components/home/HomeView";
-import LogoutButton from "./components/auth/LogoutButton";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import store from "./store";
+import NavigationBar from "./components/navigation/NavigationBar";
 
 function App() {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
@@ -24,19 +24,7 @@ function App() {
     <div className="App">
       <Router>
         <div>
-          <LogoutButton />
-
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-          </ul>
+          <NavigationBar />
 
           <Switch>
             <Route exact path="/">

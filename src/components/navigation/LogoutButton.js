@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logout } from "../../actions/auth";
+import { ButtonSecondary } from "../buttons/Button";
 
 export default function LogoutButton() {
   const dispatch = useDispatch();
@@ -11,16 +12,14 @@ export default function LogoutButton() {
 
   return (
     isLoggedIn && (
-      <p>
-        <button
-          onClick={() => {
-            dispatch(logout());
-            history.push("/");
-          }}
-        >
-          Logout
-        </button>
-      </p>
+      <ButtonSecondary
+        onClick={() => {
+          dispatch(logout());
+          history.push("/");
+        }}
+      >
+        Log out
+      </ButtonSecondary>
     )
   );
 }

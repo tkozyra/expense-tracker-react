@@ -30,17 +30,16 @@ const ButtonPrimary = styled(Button)`
   &:hover {
     background: #023e8a;
   }
-  box-shadow: 1px 1px 2px 0px #848484;
+  // box-shadow: 1px 1px 2px 0px #848484;
 `;
 
 const ButtonSecondary = styled(Button)`
-  background: #fff;
-  border: 1px solid #dee2e6;
-  color: #000;
+  background: #e9ecef;
+  color: #002e63;
   &:hover {
-    background: #e9ecef;
+    background: #dee2e6;
   }
-  box-shadow: 1px 1px 2px 0px #848484;
+  // box-shadow: 1px 1px 2px 0px #848484;
 `;
 
 const ButtonPrimaryRound = styled(ButtonPrimary)`

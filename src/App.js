@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import RegistrationView from "./components/auth/RegistrationView";
 import LoginView from "./components/auth/LoginView";
 import NewTransactionView from "./components/transaction/NewTransactionView";
@@ -13,23 +7,18 @@ import EditTransactionView from "./components/transaction/EditTransactionView";
 import Dashboard from "./components/dashboard/Dashboard";
 import Profile from "./components/profile/Profile";
 import HomeView from "./components/home/HomeView";
-import AuthService from "./services/AuthService";
+import LogoutButton from "./components/auth/LogoutButton";
 import PrivateRoute from "./components/auth/PrivateRoute";
+import store from "./store";
 
 function App() {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
 
   useEffect(() => {
-    onLoad();
+    store.subscribe(() =>
+      setUserAuthenticated(store.getState().auth.isLoggedIn)
+    );
   }, []);
-
-  async function onLoad() {
-    setUserAuthenticated(false);
-    const user = await AuthService.getCurrentUser();
-    if (user) {
-      setUserAuthenticated(true);
-    }
-  }
 
   return (
     <div className="App">
@@ -70,6 +59,7 @@ function App() {
             <Route path="/register">
               <RegistrationView />
             </Route>
+
             <PrivateRoute
               path="/transactions/new"
               userAuthenticated={userAuthenticated}
@@ -86,27 +76,6 @@ function App() {
         </div>
       </Router>
     </div>
-  );
-}
-
-function LogoutButton() {
-  let history = useHistory();
-  let auth = AuthService;
-
-  return (
-    auth.getCurrentUser() && (
-      <p>
-        <button
-          onClick={() => {
-            auth.logout();
-            history.push("/");
-            window.location.reload();
-          }}
-        >
-          Logout
-        </button>
-      </p>
-    )
   );
 }
 

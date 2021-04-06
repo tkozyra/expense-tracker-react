@@ -11,38 +11,34 @@ import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
 
+import { connect, useDispatch } from "react-redux";
+import { signin } from "../../actions/auth";
+
 export default function LoginView() {
   const { register, handleSubmit, errors } = useForm();
   const [submitting, setSubmitting] = useState(false);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const dispatch = useDispatch();
 
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
 
-  const login = async (formData) => {
+  const handleLogin = (formData) => {
     setSubmitting(true);
     setShowAlert(false);
-
     try {
-      const response = await AuthService.login(
-        formData.username,
-        formData.password
-      );
-      const data = await response.json();
-
-      console.log(response);
-      if (!response.ok) {
-        setInvalidCredentials(true);
-        setShowAlert(true);
-      } else {
-        if (data.accessToken) {
-          localStorage.setItem("user", JSON.stringify(data));
+      dispatch(signin(formData.username, formData.password)).then(
+        (response) => {
+          if (!response.ok) {
+            setInvalidCredentials(true);
+            setShowAlert(true);
+          } else {
+            history.replace(from);
+          }
         }
-        history.replace("/");
-        window.location.reload();
-      }
+      );
     } catch (error) {
       setShowAlert(true);
     } finally {
@@ -52,8 +48,6 @@ export default function LoginView() {
 
   return (
     <FormContainerAuth>
-      <p>You must log in to view the page at {from.pathname}</p>
-
       <h1 className="text-center mt-3 mb-5">Login</h1>
 
       {invalidCredentials && showAlert && (
@@ -66,7 +60,7 @@ export default function LoginView() {
         </Alert>
       )}
 
-      <Form onSubmit={handleSubmit(login)}>
+      <Form onSubmit={handleSubmit(handleLogin)}>
         <Form.Group>
           <Form.Label htmlFor="username">Username</Form.Label>
           <Form.Control
@@ -103,3 +97,12 @@ export default function LoginView() {
     </FormContainerAuth>
   );
 }
+
+// function mapStateToProps(state) {
+//   const { isLoggedIn } = state.auth;
+//   return {
+//     isLoggedIn,
+//   };
+// }
+
+// export default connect(mapStateToProps)(LoginView);

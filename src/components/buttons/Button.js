@@ -25,27 +25,24 @@ const Button = styled.button`
 `;
 
 const ButtonPrimary = styled(Button)`
-  background: #0077b6;
-  border: 1px solid #0077b6;
+  background: #f3626a;
+  border: 1px solid #f3626a;
   &:hover {
-    background: #023e8a;
+    background: #f46f77;
   }
-  // box-shadow: 1px 1px 2px 0px #848484;
 `;
 
 const ButtonSecondary = styled(Button)`
-  background: #e9ecef;
-  color: #002e63;
-  &:hover {
-    background: #dee2e6;
-  }
-  // box-shadow: 1px 1px 2px 0px #848484;
+  background: #fff;
+  border: 1px solid #f3626a;
+  color: #f3626a;
 `;
 
 const ButtonPrimaryRound = styled(ButtonPrimary)`
   width: 3em;
   height: 3em;
   border-radius: 50%;
+  box-shadow: 1px 1px 2px 0px #848484;
 `;
 
 const ButtonTransactionType = styled.button`

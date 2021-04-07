@@ -7,12 +7,30 @@ import { FormContainerAuth } from "../form/FormContainer";
 import FormInputPassword from "../form/FormInputPassword";
 import { ButtonPrimary } from "../buttons/Button";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
-import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
 import { useHistory, useLocation } from "react-router";
+import styled from "styled-components";
 
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { signin } from "../../actions/auth";
+import { Link } from "react-router-dom";
+
+const CustomLink = styled(Link)`
+  text-decoration: underline;
+  color: #f3626a;
+  margin: 0 0.3em;
+
+  &:hover {
+    color: #f46f77;
+  }
+`;
+
+const ContainerFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+  font-size: 0.9em;
+`;
 
 export default function LoginView() {
   const { register, handleSubmit, errors } = useForm();
@@ -35,7 +53,12 @@ export default function LoginView() {
             setInvalidCredentials(true);
             setShowAlert(true);
           } else {
-            history.replace(from);
+            console.log(from.pathname);
+            if (from.pathname === "/") {
+              history.replace("/dashboard");
+            } else {
+              history.replace(from);
+            }
           }
         }
       );
@@ -48,7 +71,7 @@ export default function LoginView() {
 
   return (
     <FormContainerAuth>
-      <h1 className="text-center mt-3 mb-5">Login</h1>
+      <h1 className="text-center mt-3 mb-5">Log in</h1>
 
       {invalidCredentials && showAlert && (
         <Alert
@@ -90,19 +113,15 @@ export default function LoginView() {
 
         <ButtonContainerForm>
           <ButtonPrimary type="submit" disabled={submitting} width={"100%"}>
-            Login
+            Log in
           </ButtonPrimary>
         </ButtonContainerForm>
+
+        <ContainerFlex>
+          <p>You don't have an account yet?</p>
+          <CustomLink to="/register">Create an account</CustomLink>
+        </ContainerFlex>
       </Form>
     </FormContainerAuth>
   );
 }
-
-// function mapStateToProps(state) {
-//   const { isLoggedIn } = state.auth;
-//   return {
-//     isLoggedIn,
-//   };
-// }
-
-// export default connect(mapStateToProps)(LoginView);

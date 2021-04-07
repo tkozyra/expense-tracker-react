@@ -10,6 +10,25 @@ import { ButtonPrimary } from "../buttons/Button";
 import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const CustomLink = styled(Link)`
+  text-decoration: underline;
+  color: #f3626a;
+  margin: 0 0.3em;
+
+  &:hover {
+    color: #f46f77;
+  }
+`;
+
+const ContainerFlex = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-top: 1em;
+  font-size: 0.9em;
+`;
 
 export default function RegistrationView() {
   const { register, handleSubmit, errors } = useForm();
@@ -53,7 +72,7 @@ export default function RegistrationView() {
 
   return (
     <FormContainerAuth>
-      <h1 className="text-center mt-3 mb-5">Register</h1>
+      <h1 className="text-center mt-3 mb-5">Create account</h1>
       {invalidCredentials && showAlert && (
         <Alert
           variant={"danger"}
@@ -105,10 +124,6 @@ export default function RegistrationView() {
           <Form.Label htmlFor="password">Password</Form.Label>
           <FormInputPassword
             reference={register({
-              minLength: {
-                value: 8,
-                message: "Password should be at least 8 characters long",
-              },
               required: "The Password field is required",
             })}
           />
@@ -119,9 +134,14 @@ export default function RegistrationView() {
 
         <ButtonContainerForm>
           <ButtonPrimary type="submit" disabled={submitting} width={"100%"}>
-            Register
+            Create account
           </ButtonPrimary>
         </ButtonContainerForm>
+
+        <ContainerFlex>
+          <p>You already have an account?</p>
+          <CustomLink to="/login">Log in</CustomLink>
+        </ContainerFlex>
       </Form>
     </FormContainerAuth>
   );

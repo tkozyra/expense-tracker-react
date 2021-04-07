@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const FormContainer = styled.div`
+  background: #fff;
   @media (max-width: 768px) {
     width: 100vw;
     box-shadow: none;
@@ -8,19 +9,27 @@ const FormContainer = styled.div`
 `;
 
 const FormContainerCentered = styled(FormContainer)`
-  min-width: 450px;
-  padding: 2em;
+  min-width: 280px;
+  padding: 1em;
   position: absolute;
   transform: translate(-50%);
   left: 50%;
+
+  @media (min-width: 768px) {
+    width: 450px;
+    padding: 2em;
+    box-shadow: 0px 0px 8px 1px #e9ecef;
+  }
 `;
 
 const FormContainerAuth = styled(FormContainerCentered)`
-  top: 20%;
+  top: 15%;
   border-radius: 5px;
-  box-shadow: 0px 2px 10px -2px #898189;
 `;
 
-const FormContainerTransaction = styled(FormContainerCentered)``;
+const FormContainerTransaction = styled(FormContainerCentered)`
+  top: 15%;
+  border-radius: 5px;
+`;
 
 export { FormContainerTransaction, FormContainerAuth };

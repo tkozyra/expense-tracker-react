@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import RegistrationView from "./components/auth/RegistrationView";
 import LoginView from "./components/auth/LoginView";
 import NewTransactionView from "./components/transaction/NewTransactionView";
@@ -8,17 +12,11 @@ import Dashboard from "./components/dashboard/Dashboard";
 import Profile from "./components/profile/Profile";
 import HomeView from "./components/home/HomeView";
 import PrivateRoute from "./components/auth/PrivateRoute";
-import store from "./store";
 import NavigationBar from "./components/navigation/NavigationBar";
+import { useSelector } from "react-redux";
 
 function App() {
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
-
-  useEffect(() => {
-    store.subscribe(() =>
-      setUserAuthenticated(store.getState().auth.isLoggedIn)
-    );
-  }, []);
+  const userAuthenticated = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <div className="App">
@@ -60,6 +58,10 @@ function App() {
             >
               <EditTransactionView />
             </PrivateRoute>
+
+            <Route path="*">
+              <Redirect to="/" />
+            </Route>
           </Switch>
         </div>
       </Router>

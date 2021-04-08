@@ -11,6 +11,7 @@ import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const CustomLink = styled(Link)`
@@ -37,6 +38,7 @@ export default function RegistrationView() {
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const onSubmit = async (formData) => {
     setSubmitting(true);
@@ -72,6 +74,7 @@ export default function RegistrationView() {
 
   return (
     <FormContainerAuth>
+      {isLoggedIn && <Redirect to={"/dashboard"} />}
       <h1 className="text-center mt-3 mb-5">Create account</h1>
       {invalidCredentials && showAlert && (
         <Alert

@@ -8,10 +8,10 @@ import FormInputPassword from "../form/FormInputPassword";
 import { ButtonPrimary } from "../buttons/Button";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
 import { Alert } from "react-bootstrap";
-import { useHistory, useLocation } from "react-router";
+import { Redirect, useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../actions/auth";
 import { Link } from "react-router-dom";
 
@@ -42,6 +42,7 @@ export default function LoginView() {
   let history = useHistory();
   let location = useLocation();
   let { from } = location.state || { from: { pathname: "/" } };
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const handleLogin = (formData) => {
     setSubmitting(true);
@@ -71,6 +72,7 @@ export default function LoginView() {
 
   return (
     <FormContainerAuth>
+      {isLoggedIn && <Redirect to={"/dashboard"} />}
       <h1 className="text-center mt-3 mb-5">Log in</h1>
 
       {invalidCredentials && showAlert && (

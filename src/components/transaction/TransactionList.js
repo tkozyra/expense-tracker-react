@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Transaction from "./Transaction";
+import TransactionsNotFound from "./TransactionsNotFound";
 
 export default function TransactionList({ transactions, onRemove, onEdit }) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -21,7 +22,7 @@ export default function TransactionList({ transactions, onRemove, onEdit }) {
   return (
     <div>
       {!transactions.length ? (
-        <h2>No transactions found.</h2>
+        <TransactionsNotFound />
       ) : (
         currentTransactions.map((tr) => (
           <Transaction

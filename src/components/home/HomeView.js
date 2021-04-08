@@ -1,7 +1,8 @@
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router";
 import styled from "styled-components";
 import { ButtonPrimary, ButtonSecondary } from "../buttons/Button";
 import home from "../../images/home.svg";
+import { useSelector } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -34,9 +35,11 @@ const HomeImg = styled.img`
 
 export default function HomeView() {
   let history = useHistory();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <Container>
+      {isLoggedIn && <Redirect to={"/dashboard"} />}
       <Content>
         <h1>Expense tracker</h1>
         <p>Start managing your expenses with us</p>

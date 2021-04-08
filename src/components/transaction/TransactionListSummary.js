@@ -7,15 +7,27 @@ const Container = styled.div`
   align-items: center;
   justify-content: flex-start;
   border-bottom: 1px solid #f3f3f3;
-  padding: 1em;
+  padding: 0.5em;
+
+  @media (min-width: 768px) {
+    padding: 1em;
+  }
 `;
 
 const Item = styled.div`
-  padding: 1em;
+  padding: 1em 0.5em;
+
+  @media (min-width: 768px) {
+    padding: 1em;
+  }
 `;
 
 const ItemLeft = styled(Item)`
-  margin-right: 2em;
+  margin-right: 1em;
+
+  @media (min-width: 768px) {
+    margin-right: 2em;
+  }
 `;
 
 const ItemRight = styled(Item)`
@@ -29,9 +41,13 @@ const Title = styled.p`
 `;
 
 const Amount = styled.p`
-  font-size: 1.2em;
+  font-size: 1em;
   font-weight: bold;
   margin: 0;
+
+  @media (min-width: 768px) {
+    font-size: 1.2em;
+  }
 `;
 
 export default function TransactionListSummary({ transactions, currency }) {

@@ -43,6 +43,13 @@ const ButtonPrimaryRound = styled(ButtonPrimary)`
   height: 3em;
   border-radius: 50%;
   box-shadow: 1px 1px 2px 0px #848484;
+
+  @media (max-width: 600px) {
+    position: fixed;
+    z-index: 20;
+    bottom: 30px;
+    left: 30px;
+  }
 `;
 
 const ButtonTransactionType = styled.button`
@@ -81,7 +88,7 @@ const ButtonArrowRight = ({ onClick, disabled }) => {
 };
 
 const ButtonPageNumber = styled(ButtonPagination)`
-  background: ${(props) => (props.current ? "#0077b6" : "#e9ecef")};
+  background: ${(props) => (props.current ? "#f3626a" : "#e9ecef")};
   color: ${(props) => (props.current ? "#ffffff" : "#000000")};
 `;
 

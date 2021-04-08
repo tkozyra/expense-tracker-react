@@ -6,7 +6,11 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
   display: flex;
   align-items: center;
-  padding: 1em 2em;
+  padding: 0.5em;
+
+  @media (min-width: 768px) {
+    padding: 1em 2em;
+  }
 `;
 
 const ItemLeft = styled.div`

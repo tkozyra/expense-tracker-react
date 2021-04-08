@@ -10,9 +10,13 @@ const I = styled.i`
   justify-content: center;
   width: 100%;
   height: 100%;
-  font-size: 1.2em;
+  font-size: 1em;
   opacity: 0.8;
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    font-size: 1.2em;
+  }
 `;
 
 const EditIcon = styled(I)`
@@ -36,12 +40,20 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #f3f3f3;
-  padding: 1em 2em;
+  padding: 1em 0.5em;
+
+  @media (min-width: 768px) {
+    padding: 1em 2em;
+  }
 `;
 
 const Description = styled.p`
-  font-size: 1.2em;
   margin: 0;
+  overflow-wrap: break-word;
+
+  @media (min-width: 768px) {
+    font-size: 1.2em;
+  }
 `;
 
 const Date = styled.p`
@@ -68,8 +80,13 @@ const CurrencyAndAmount = styled.div`
 `;
 
 const Item = styled.div`
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
+
+  @media (min-width: 768px) {
+    height: 50px;
+    width: 50px;
+  }
 `;
 
 const ItemGrow = styled(Item)`
@@ -79,11 +96,16 @@ const ItemGrow = styled(Item)`
 export default function Transaction({ transaction, onRemove, onEdit }) {
   const editIcon = <FontAwesomeIcon icon={faPen} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
+  const maxDescriptionLength = 18;
 
   return (
     <Container>
       <ItemGrow>
-        <Description>{transaction.description}</Description>
+        <Description>
+          {transaction.description.length > maxDescriptionLength
+            ? transaction.description.substring(0, maxDescriptionLength) + "..."
+            : transaction.description}
+        </Description>
         <Date>{transaction.date}</Date>
       </ItemGrow>
       <CurrencyAndAmount transactionType={transaction.type}>

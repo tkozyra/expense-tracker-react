@@ -1,10 +1,25 @@
 import { useEffect, useState } from "react";
 import AuthService from "../../services/AuthService";
 import styled from "styled-components";
-import { ButtonPrimary } from "../buttons/Button";
 
 const Container = styled.div`
-  padding: 1em 2em;
+  width: 90vw;
+
+  @media (min-width: 768px) and (max-width: 999px) {
+    width: 80vw;
+  }
+
+  @media (min-width: 1000px) {
+    width: 50vw;
+  }
+`;
+
+const ContainerFlex = styled.div`
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2em 0;
 `;
 
 const UserProfileDataContainer = styled.div`
@@ -13,6 +28,7 @@ const UserProfileDataContainer = styled.div`
   align-items: center;
   jusitfy-content: center;
   padding: 1em 2em;
+  margin: 1em 0;
 `;
 
 const UserProfileData = styled.div`
@@ -39,26 +55,24 @@ export default function Profile() {
   return (
     <div>
       {currentUser && (
-        <Container>
-          <h1>Profile</h1>
+        <ContainerFlex>
+          <Container>
+            <h1>Profile</h1>
 
-          <UserProfileDataContainer>
-            <UserProfileData>
-              <Title>Username</Title>
-              <Value>{currentUser.username}</Value>
-            </UserProfileData>
-
-            <ButtonPrimary>Edit</ButtonPrimary>
-          </UserProfileDataContainer>
-          <UserProfileDataContainer>
-            <UserProfileData>
-              <Title>Email address</Title>
-              <Value>{currentUser.email}</Value>
-            </UserProfileData>
-
-            <ButtonPrimary>Edit</ButtonPrimary>
-          </UserProfileDataContainer>
-        </Container>
+            <UserProfileDataContainer>
+              <UserProfileData>
+                <Title>Username</Title>
+                <Value>{currentUser.username}</Value>
+              </UserProfileData>
+            </UserProfileDataContainer>
+            <UserProfileDataContainer>
+              <UserProfileData>
+                <Title>Email address</Title>
+                <Value>{currentUser.email}</Value>
+              </UserProfileData>
+            </UserProfileDataContainer>
+          </Container>
+        </ContainerFlex>
       )}
     </div>
   );

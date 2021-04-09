@@ -8,6 +8,27 @@ import {
 } from "../transaction/TransactionController";
 import TransactionFilter from "../transaction/filter/TransactionFilter";
 import TransactionListHeader from "../transaction/TransactionListHeader";
+import styled from "styled-components";
+
+const Container = styled.div`
+  width: 90vw;
+
+  @media (min-width: 768px) and (max-width: 999px) {
+    width: 80vw;
+  }
+
+  @media (min-width: 1000px) {
+    width: 50vw;
+  }
+`;
+
+const ContainerFlex = styled.div`
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1em 0;
+`;
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);
@@ -53,37 +74,30 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="col-md-8">
-          <TransactionListHeader />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-md-8">
-          <TransactionFilter
-            filterParams={filterParams}
-            setFilterParams={setFilterParams}
-          />
+    <ContainerFlex>
+      <Container>
+        <TransactionListHeader />
+        <TransactionFilter
+          filterParams={filterParams}
+          setFilterParams={setFilterParams}
+        />
 
-          <TransactionListSummary
+        <TransactionListSummary
+          transactions={filteredTransactions}
+          currency={currency}
+        />
+
+        {transactionsLoading ? (
+          <Spinner animation="border" role="status">
+            <span className="sr-only">Loading...</span>
+          </Spinner>
+        ) : (
+          <TransactionList
             transactions={filteredTransactions}
-            currency={currency}
-          />
-
-          {transactionsLoading ? (
-            <Spinner animation="border" role="status">
-              <span className="sr-only">Loading...</span>
-            </Spinner>
-          ) : (
-            <TransactionList
-              transactions={filteredTransactions}
-              onRemove={removeTransaction}
-            ></TransactionList>
-          )}
-        </div>
-        <div className="col-md-4"></div>
-      </div>
-    </div>
+            onRemove={removeTransaction}
+          ></TransactionList>
+        )}
+      </Container>
+    </ContainerFlex>
   );
 }

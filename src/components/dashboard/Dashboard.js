@@ -27,7 +27,7 @@ const ContainerFlex = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1em 0;
+  margin: 0;
 `;
 
 export default function Dashboard() {

@@ -2,8 +2,28 @@ import { useState } from "react";
 import Pagination from "../pagination/Pagination";
 import Transaction from "./Transaction";
 import TransactionsNotFound from "./TransactionsNotFound";
+import styled from "styled-components";
+import { Spinner } from "../../shared/Spinner";
 
-export default function TransactionList({ transactions, onRemove, onEdit }) {
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const SpinnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10em;
+`;
+
+export default function TransactionList({
+  transactions,
+  transactionsLoading,
+  onRemove,
+  onEdit,
+}) {
   const [currentPage, setCurrentPage] = useState(1);
   const [transactionsPerPage] = useState(5);
 
@@ -19,8 +39,16 @@ export default function TransactionList({ transactions, onRemove, onEdit }) {
   const pageDown = () => setCurrentPage(currentPage - 1);
   const reset = () => setCurrentPage(1);
 
+  if (transactionsLoading) {
+    return (
+      <SpinnerContainer>
+        <Spinner size="75px" />
+      </SpinnerContainer>
+    );
+  }
+
   return (
-    <div>
+    <Container>
       {!transactions.length ? (
         <TransactionsNotFound />
       ) : (
@@ -42,6 +70,6 @@ export default function TransactionList({ transactions, onRemove, onEdit }) {
         pageDown={pageDown}
         reset={reset}
       />
-    </div>
+    </Container>
   );
 }

@@ -1,7 +1,6 @@
 import TransactionList from "../transaction/TransactionList";
 import TransactionListSummary from "../transaction/TransactionListSummary";
 import { useState, useEffect } from "react";
-import Spinner from "react-bootstrap/Spinner";
 import {
   fetchTransactions,
   deleteTransaction,
@@ -69,8 +68,8 @@ export default function Dashboard() {
       .then((transactions) => {
         setTransactions(transactions);
         setFilteredTransactions(transactions);
+        setTransactionsLoading(false);
       });
-    setTransactionsLoading(false);
   }, []);
 
   return (
@@ -81,22 +80,16 @@ export default function Dashboard() {
           filterParams={filterParams}
           setFilterParams={setFilterParams}
         />
-
         <TransactionListSummary
           transactions={filteredTransactions}
           currency={currency}
         />
 
-        {transactionsLoading ? (
-          <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-          </Spinner>
-        ) : (
-          <TransactionList
-            transactions={filteredTransactions}
-            onRemove={removeTransaction}
-          ></TransactionList>
-        )}
+        <TransactionList
+          transactions={filteredTransactions}
+          transactionsLoading={transactionsLoading}
+          onRemove={removeTransaction}
+        ></TransactionList>
       </Container>
     </ContainerFlex>
   );

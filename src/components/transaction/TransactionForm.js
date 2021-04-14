@@ -5,7 +5,7 @@ import FormInputErrorMessage from "../form/FormInputErrorMessage";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from "react-router-dom";
 import Spinner from "react-bootstrap/Spinner";
-import { ButtonPrimary, ButtonSecondary } from "../buttons/Button";
+import { ButtonPrimaryLoading, ButtonSecondary } from "../buttons/Button";
 import { ButtonContainerForm } from "../buttons/ButtonContainer";
 
 export default function TransactionForm({
@@ -24,7 +24,7 @@ export default function TransactionForm({
 
   return (
     <div>
-      {submitting || dataLoading ? (
+      {dataLoading ? (
         <Spinner animation="border" role="status">
           <span className="sr-only">Loading...</span>
         </Spinner>
@@ -97,9 +97,12 @@ export default function TransactionForm({
           </Form.Group>
 
           <ButtonContainerForm>
-            <ButtonPrimary type="submit" marginRight={"1em"}>
+            <ButtonPrimaryLoading
+              loading={submitting ? 1 : 0}
+              marginRight="1em"
+            >
               {submitButtonText}
-            </ButtonPrimary>
+            </ButtonPrimaryLoading>
             <ButtonSecondary onClick={handleCancel}>Cancel</ButtonSecondary>
           </ButtonContainerForm>
         </Form>

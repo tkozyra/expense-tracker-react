@@ -10,6 +10,14 @@ const plusIcon = <FontAwesomeIcon icon={faPlus} />;
 const arrowLeftIcon = <FontAwesomeIcon icon={faAngleLeft} />;
 const arrowRightIcon = <FontAwesomeIcon icon={faAngleRight} />;
 
+const Text = styled.span`
+  ${({ loading }) =>
+    loading &&
+    `
+    visibility: hidden;
+  `}
+`;
+
 const Button = styled.button`
   display: flex;
   align-items: center;
@@ -17,12 +25,50 @@ const Button = styled.button`
   color: #fff;
   border: none;
   border-radius: 5px;
-  padding: 0.4em 1.2em;
+  padding: 8px 16px;
+  position: relative;
   transition: 0.3s ease;
 
-  width: ${(props) => props.width};
+  ${({ loading }) =>
+    loading &&
+    `
+    opacity: 0.8;
+    &:after {
+      content: "";
+      position: absolute;
+      width: 32px;
+      height: 32px;
+  
+      border-radius: 50%;
+      background-color: transparent;
+      border: 4px solid transparent;
+      border-top: 4px solid #fff;
+      -webkit-animation: 0.8s spin linear infinite;
+      animation: 0.8s spin linear infinite;
+  
+      @keyframes spin {
+        from {
+          -webkit-transform: rotate(0deg);
+          transform: rotate(0deg);
+        }
+        to {
+          -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+        }
+      }
+    }
+    `};
+
   margin-right: ${(props) => props.marginRight};
 `;
+
+const ButtonPrimaryLoading = (props) => {
+  return (
+    <ButtonPrimary marginRight={props.marginRight} loading={props.loading}>
+      <Text loading={props.loading}>{props.children}</Text>
+    </ButtonPrimary>
+  );
+};
 
 const ButtonPrimary = styled(Button)`
   background: #f3626a;
@@ -49,6 +95,8 @@ const ButtonPrimaryRound = styled(ButtonPrimary)`
     z-index: 20;
     bottom: 30px;
     left: 30px;
+    width: 4em;
+    height: 4em;
   }
 `;
 
@@ -94,6 +142,7 @@ const ButtonPageNumber = styled(ButtonPagination)`
 
 export {
   ButtonPrimary,
+  ButtonPrimaryLoading,
   ButtonSecondary,
   ButtonTransactionType,
   ButtonPageNumber,

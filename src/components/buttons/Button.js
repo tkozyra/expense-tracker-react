@@ -32,7 +32,7 @@ const Button = styled.button`
   ${({ loading }) =>
     loading &&
     `
-    opacity: 0.8;
+    opacity: 0.7;
     &:after {
       content: "";
       position: absolute;
@@ -60,11 +60,17 @@ const Button = styled.button`
     `};
 
   margin-right: ${(props) => props.marginRight};
+  width: ${(props) => props.width};
 `;
 
 const ButtonPrimaryLoading = (props) => {
   return (
-    <ButtonPrimary marginRight={props.marginRight} loading={props.loading}>
+    <ButtonPrimary
+      marginRight={props.marginRight}
+      loading={props.loading}
+      width={props.width}
+      disabled={props.disabled}
+    >
       <Text loading={props.loading}>{props.children}</Text>
     </ButtonPrimary>
   );

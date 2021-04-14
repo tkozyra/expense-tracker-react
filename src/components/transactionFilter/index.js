@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import TransactionTypeFilter from "./TransactionTypeFilter";
-import {
-  TransactionFilterContainer,
-  TransactionFilterItem,
-} from "./TransactionFilterContainer";
+import { TransactionFilterContainer, TransactionFilterItem } from "./style";
 import TransactionDescriptionFilter from "./TransactionDescriptionFilter";
 
 export default function TransactionFilter({ filterParams, setFilterParams }) {

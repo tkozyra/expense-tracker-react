@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
-import FormInputErrorMessage from "../form/FormInputErrorMessage";
+import FormInputErrorMessage from "./FormInputErrorMessage";
 import "react-datepicker/dist/react-datepicker.css";
 import { useHistory } from "react-router-dom";
-import { Spinner } from "../../shared/Spinner";
-import { ButtonPrimaryLoading, ButtonSecondary } from "../buttons/Button";
-import { ButtonContainerForm } from "../buttons/ButtonContainer";
+import { Spinner } from "./Spinner";
+import { ButtonPrimaryLoading, ButtonSecondary } from "./buttons/Button";
+import { ButtonContainerForm } from "./buttons/ButtonContainer";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -95,8 +95,8 @@ export default function TransactionForm({
               required: "The Type field is required",
             })}
           >
-            <option>INCOME</option>
             <option>EXPENSE</option>
+            <option>INCOME</option>
           </Form.Control>
         </Form.Group>
 

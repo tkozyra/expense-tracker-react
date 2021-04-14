@@ -4,14 +4,14 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import RegistrationView from "./components/auth/RegistrationView";
-import LoginView from "./components/auth/LoginView";
-import NewTransactionView from "./components/transaction/NewTransactionView";
-import EditTransactionView from "./components/transaction/EditTransactionView";
-import Dashboard from "./components/dashboard/Dashboard";
-import Profile from "./components/profile/Profile";
-import HomeView from "./components/home/HomeView";
-import PrivateRoute from "./components/auth/PrivateRoute";
+import RegistrationView from "./components/registration";
+import LoginView from "./components/login";
+import NewTransactionView from "./components/transactionNew";
+import EditTransactionView from "./components/transactionEdit";
+import Dashboard from "./components/dashboard";
+import Profile from "./components/profile";
+import HomeView from "./components/home";
+import PrivateRoute from "./components/utils/PrivateRoute";
 import NavigationBar from "./components/navigation/NavigationBar";
 import { useSelector } from "react-redux";
 

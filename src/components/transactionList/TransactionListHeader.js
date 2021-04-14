@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ButtonAddTransaction } from "../buttons/Button";
+import { ButtonAddTransaction } from "../../shared/buttons/Button";
 
 import { Link } from "react-router-dom";
 

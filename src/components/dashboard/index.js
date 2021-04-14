@@ -1,33 +1,13 @@
-import TransactionList from "../transaction/TransactionList";
-import TransactionListSummary from "../transaction/TransactionListSummary";
+import TransactionList from "../transactionList";
+import TransactionListSummary from "../transactionList/TransactionListSummary";
 import { useState, useEffect } from "react";
 import {
   fetchTransactions,
   deleteTransaction,
-} from "../transaction/TransactionController";
-import TransactionFilter from "../transaction/filter/TransactionFilter";
-import TransactionListHeader from "../transaction/TransactionListHeader";
-import styled from "styled-components";
-
-const Container = styled.div`
-  width: 90vw;
-
-  @media (min-width: 768px) and (max-width: 999px) {
-    width: 80vw;
-  }
-
-  @media (min-width: 1000px) {
-    width: 50vw;
-  }
-`;
-
-const ContainerFlex = styled.div`
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-`;
+} from "../../services/TransactionService";
+import TransactionFilter from "../transactionFilter";
+import TransactionListHeader from "../transactionList/TransactionListHeader";
+import { Container, ContainerFlex } from "./style";
 
 export default function Dashboard() {
   const [transactions, setTransactions] = useState([]);

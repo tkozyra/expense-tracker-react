@@ -1,37 +1,8 @@
 import { Redirect, useHistory } from "react-router";
-import styled from "styled-components";
-import { ButtonPrimary, ButtonSecondary } from "../buttons/Button";
+import { ButtonPrimary, ButtonSecondary } from "../../shared/buttons/Button";
 import home from "../../images/home.svg";
+import { Container, Content, HomeImg, ButtonContainer } from "./style";
 import { useSelector } from "react-redux";
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100vw;
-  height: 100vh;
-`;
-
-const Content = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  max-width: 100%;
-  max-height: 100%;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  margin: 1em;
-`;
-
-const HomeImg = styled.img`
-  position: relative;
-  max-width: 100%;
-  max-height: 1000%;
-`;
 
 export default function HomeView() {
   let history = useHistory();

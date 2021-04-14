@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import TransactionForm from "./TransactionForm";
-import { FormContainerTransaction } from "../form/FormContainer";
+import TransactionForm from "../../shared/TransactionForm";
+import { FormContainerTransaction } from "../../shared/FormContainer";
 import { useParams } from "react-router-dom";
-import { fetchTransactionById } from "./TransactionController";
-import { putTransaction } from "../transaction/TransactionController";
+import {
+  putTransaction,
+  fetchTransactionById,
+} from "../../services/TransactionService";
 import { Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import AuthService from "../../services/AuthService";

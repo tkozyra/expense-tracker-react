@@ -1,5 +1,5 @@
 import { Modal } from "react-bootstrap";
-import { ButtonPrimary, ButtonSecondary } from "../buttons/Button";
+import { ButtonPrimary, ButtonSecondary } from "../../shared/buttons/Button";
 
 export default function TransactionRemovalModal({ onHide, onRemove, ...rest }) {
   return (

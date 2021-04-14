@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
-import FormInputErrorMessage from "../form/FormInputErrorMessage";
-import { FormContainerAuth } from "../form/FormContainer";
-import FormInputPassword from "../form/FormInputPassword";
-import { ButtonContainerForm } from "../buttons/ButtonContainer";
-import { ButtonPrimary } from "../buttons/Button";
+import FormInputErrorMessage from "../../shared/FormInputErrorMessage";
+import { FormContainerAuth } from "../../shared/FormContainer";
+import FormInputPassword from "../../shared/FormInputPassword";
+import { ButtonContainerForm } from "../../shared/buttons/ButtonContainer";
+import { ButtonPrimaryLoading } from "../../shared/buttons/Button";
 import AuthService from "../../services/AuthService";
 import { Alert } from "react-bootstrap";
 import { Redirect } from "react-router";
@@ -136,9 +136,14 @@ export default function RegistrationView() {
         </Form.Group>
 
         <ButtonContainerForm>
-          <ButtonPrimary type="submit" disabled={submitting} width={"100%"}>
+          <ButtonPrimaryLoading
+            type="submit"
+            loading={submitting ? 1 : 0}
+            width={"100%"}
+            disabled={submitting}
+          >
             Create account
-          </ButtonPrimary>
+          </ButtonPrimaryLoading>
         </ButtonContainerForm>
 
         <ContainerFlex>

@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
-import FormInputErrorMessage from "../form/FormInputErrorMessage";
-import { FormContainerAuth } from "../form/FormContainer";
-import FormInputPassword from "../form/FormInputPassword";
-import { ButtonPrimary } from "../buttons/Button";
-import { ButtonContainerForm } from "../buttons/ButtonContainer";
+import FormInputErrorMessage from "../../shared/FormInputErrorMessage";
+import { FormContainerAuth } from "../../shared/FormContainer";
+import FormInputPassword from "../../shared/FormInputPassword";
+import { ButtonPrimaryLoading } from "../../shared/buttons/Button";
+import { ButtonContainerForm } from "../../shared/buttons/ButtonContainer";
 import { Alert } from "react-bootstrap";
 import { Redirect, useHistory, useLocation } from "react-router";
 import styled from "styled-components";
@@ -44,11 +44,11 @@ export default function LoginView() {
   let { from } = location.state || { from: { pathname: "/" } };
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  const handleLogin = (formData) => {
+  const handleLogin = async (formData) => {
     setSubmitting(true);
     setShowAlert(false);
     try {
-      dispatch(signin(formData.username, formData.password)).then(
+      await dispatch(signin(formData.username, formData.password)).then(
         (response) => {
           if (!response.ok) {
             setInvalidCredentials(true);
@@ -114,9 +114,14 @@ export default function LoginView() {
         </Form.Group>
 
         <ButtonContainerForm>
-          <ButtonPrimary type="submit" disabled={submitting} width={"100%"}>
+          <ButtonPrimaryLoading
+            type="submit"
+            loading={submitting ? 1 : 0}
+            width={"100%"}
+            disabled={submitting}
+          >
             Log in
-          </ButtonPrimary>
+          </ButtonPrimaryLoading>
         </ButtonContainerForm>
 
         <ContainerFlex>

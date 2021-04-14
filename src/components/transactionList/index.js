@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Pagination from "../pagination/Pagination";
+import Pagination from "../pagination";
 import Transaction from "./Transaction";
 import TransactionsNotFound from "./TransactionsNotFound";
 import styled from "styled-components";

@@ -1,5 +1,5 @@
-import { API_URL } from "../../api/Api";
-import authHeader from "../../services/auth-header";
+import { API_URL } from "../api/Api";
+import authHeader from "./auth-header";
 
 const fetchTransactions = async () => {
   const { Authorization } = authHeader();

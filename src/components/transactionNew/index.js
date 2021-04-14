@@ -1,7 +1,7 @@
 import { useState } from "react";
-import TransactionForm from "./TransactionForm";
-import { FormContainerTransaction } from "../form/FormContainer";
-import { postTransaction } from "../transaction/TransactionController";
+import TransactionForm from "../../shared/TransactionForm";
+import { FormContainerTransaction } from "../../shared/FormContainer";
+import { postTransaction } from "../../services/TransactionService";
 import { Redirect } from "react-router-dom";
 import { Alert } from "react-bootstrap";
 import AuthService from "../../services/AuthService";

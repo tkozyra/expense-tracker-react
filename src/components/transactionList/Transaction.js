@@ -3,6 +3,8 @@ import { CurrencySymbols } from "../utils/CurrencySymbols";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import TransactionRemovalModal from "./TransactionRemovalModal";
 
 const I = styled.i`
   display: flex;
@@ -97,6 +99,7 @@ export default function Transaction({ transaction, onRemove, onEdit }) {
   const editIcon = <FontAwesomeIcon icon={faPen} />;
   const deleteIcon = <FontAwesomeIcon icon={faTrash} />;
   const maxDescriptionLength = 18;
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <Container>
@@ -121,9 +124,15 @@ export default function Transaction({ transaction, onRemove, onEdit }) {
         </Item>
       </Link>
 
-      <Item onClick={() => onRemove(transaction.id)}>
+      <Item onClick={() => setShowModal(true)}>
         <DeleteIcon>{deleteIcon}</DeleteIcon>
       </Item>
+
+      <TransactionRemovalModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        onRemove={() => onRemove(transaction.id)}
+      />
     </Container>
   );
 }

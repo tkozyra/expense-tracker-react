@@ -4,7 +4,7 @@ import {
   ButtonPageNumber,
   ButtonArrowLeft,
   ButtonArrowRight,
-} from "../buttons/Button";
+} from "../../shared/buttons/Button";
 
 const Container = styled.div`
   display: flex;

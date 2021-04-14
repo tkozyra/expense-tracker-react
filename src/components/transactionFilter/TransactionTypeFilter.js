@@ -1,5 +1,5 @@
-import { ButtonTransactionType } from "../../buttons/Button";
-import { ButtonContainerTransactionType } from "../../buttons/ButtonContainer";
+import { ButtonTransactionType } from "../../shared/buttons/Button";
+import { ButtonContainerTransactionType } from "../../shared/buttons/ButtonContainer";
 
 export default function TransactionTypeFilter({ setType, type }) {
   return (
